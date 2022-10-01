@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{6DD43532-A430-4EEE-A360-029A0F95DF80}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{008249A0-FD4F-4C04-91CF-13E9DC91A3BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceApi", "SpaceApi\SpaceApi.csproj", "{F084ECF2-046E-41E5-A355-888D04CFD366}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{6DD43532-A430-4EEE-A360-029A0F95DF80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DD43532-A430-4EEE-A360-029A0F95DF80}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DD43532-A430-4EEE-A360-029A0F95DF80}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DD43532-A430-4EEE-A360-029A0F95DF80}.Release|Any CPU.Build.0 = Release|Any CPU
+		{008249A0-FD4F-4C04-91CF-13E9DC91A3BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{008249A0-FD4F-4C04-91CF-13E9DC91A3BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{008249A0-FD4F-4C04-91CF-13E9DC91A3BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{008249A0-FD4F-4C04-91CF-13E9DC91A3BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F084ECF2-046E-41E5-A355-888D04CFD366}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F084ECF2-046E-41E5-A355-888D04CFD366}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F084ECF2-046E-41E5-A355-888D04CFD366}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F084ECF2-046E-41E5-A355-888D04CFD366}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
