@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KdiLOyNj/oR/ex3Um9MIllpV8xH/+wPXiIPVUfVzII+rt+viuEL5dEGPR/13utEJuX4PJW2W5QLLP5UlqsPFsg==",
+  "dgSpecHash": "t6zUSF9ecBE4yD5S40VNeX3XpGKLyNYe4w53cGoHXBs+0gEz7GNZFDuNf8g1QSiwnM5ZLvVFd64TSlegkyh19A==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj",
+  "projectFilePath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Aston\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\Aston\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.0-rc.1.22426.7\\microsoft.entityframeworkcore.7.0.0-rc.1.22426.7.nupkg.sha512",

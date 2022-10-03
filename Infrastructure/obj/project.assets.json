@@ -723,11 +723,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj",
+      "projectUniqueName": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj",
       "projectName": "Infrastructure",
-      "projectPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj",
+      "projectPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj",
       "packagesPath": "C:\\Users\\Aston\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Infrastructure\\obj\\",
+      "outputPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Infrastructure\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Aston\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -744,8 +744,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {
-              "projectPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj"
+            "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {
+              "projectPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj"
             }
           }
         }

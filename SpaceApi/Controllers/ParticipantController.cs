@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Dtos;
 using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
@@ -18,19 +19,19 @@ public class ParticipantController : ControllerBase
     }
 
      [HttpGet]
-    public async Task<Response<List<Participant>>> GetParticipants()
+    public async Task<Response<List<GetParticipantDto>>> GetParticipants()
     {
         return await _participantService.GetParticipants();
     }
 
     [HttpPost]
-    public async Task<Response<Participant>> AddParticipant(Participant participant)
+    public async Task<Response<AddParticipantDto>> AddParticipant(AddParticipantDto participant)
     {
         return await _participantService.AddParticipant(participant);
     }
 
     [HttpPut]
-    public async Task<Response<Participant>> UpdateParticipant(Participant participant)
+    public async Task<Response<AddParticipantDto>> UpdateParticipant(AddParticipantDto participant)
     {
         return await _participantService.UpdateParticipant(participant);
     }

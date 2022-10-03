@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {}
+    "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {
+    "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj",
+        "projectPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Aston\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\obj\\",
+        "outputPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aston\\AppData\\Roaming\\NuGet\\NuGet.Config",

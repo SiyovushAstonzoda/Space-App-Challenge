@@ -1,7 +1,10 @@
 using Domain.Entities;
+using Domain.Dtos;
 using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 namespace Infrastructure.Services;
 
 public class ChallengeService : IChallengeService
@@ -12,17 +15,23 @@ public class ChallengeService : IChallengeService
         _context = context;
     }
 
-    public async Task<Response<Challenge>> AddChallenge(Challenge challenge)
+    public async Task<Response<AddChallengeDto>> AddChallenge(AddChallengeDto model)
     {
         try
         {
+            var challenge = new Challenge()
+            {
+                Description = model.Description,
+                Name = model.Name
+            };
             await _context.Challenges.AddAsync(challenge);
             await _context.SaveChangesAsync();
-            return new Response<Challenge>(challenge);
+            model.Id = challenge.Id;
+            return new Response<AddChallengeDto>(model);
         }
         catch (Exception ex)
         {
-            return new Response<Challenge>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return new Response<AddChallengeDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
         }
     }
 
@@ -44,31 +53,37 @@ public class ChallengeService : IChallengeService
         }
     }
 
-    public async Task<Response<List<Challenge>>> GetChallenges()
+    public async Task<Response<List<GetChallengeDto>>> GetChallenges()
     {
-        //pod voprosom
-        var result = _context.Challenges.ToList();
-        return new Response<List<Challenge>>(result.ToList());
+        var challenges = await _context.Challenges.Select
+        (l=> new GetChallengeDto()
+        {
+            Description = l.Description,
+            Id = l.Id,
+            Name = l.Name
+        }
+        ).ToListAsync();
+        return new Response<List<GetChallengeDto>>(challenges);
     }
 
-    public async Task<Response<Challenge>> UpdateChallenge(Challenge challenge)
+    public async Task<Response<AddChallengeDto>> UpdateChallenge(AddChallengeDto challenge)
     {
         try
         {
             var record = await _context.Challenges.FindAsync(challenge.Id);
              //if not found it will return null
-            if(record == null) return new Response<Challenge>(System.Net.HttpStatusCode.NotFound, "No record found");
+            if(record == null) return new Response<AddChallengeDto>(System.Net.HttpStatusCode.NotFound, "No record found");
 
             //pod voprosom
             record.Name = challenge.Name;
             record.Name = challenge.Description;
             await _context.SaveChangesAsync();
 
-            return new Response<Challenge>(record);
+            return new Response<AddChallengeDto>(challenge);
         }
         catch (Exception ex)
         {
-            return new Response<Challenge>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return new Response<AddChallengeDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
         }
     }
 }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "vH3jrqfMYcsIXNWEOeyoIxHHFREZLC3YDlmp0CN3jtWhBabeFVi0ix5a7wkzCutrBN9osw39OVIH9zXRo75ZcQ==",
+  "dgSpecHash": "248ePRJUHm99ZhkqmKHSSdWEGCLzUdgZ2dPE690GmEwX4PvtA5kGdKH4jFiVtyekzRjC0v3qdb+5ABjjhcWSUw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj",
+  "projectFilePath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Aston\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.0-rc.1.22426.7\\microsoft.entityframeworkcore.7.0.0-rc.1.22426.7.nupkg.sha512",
     "C:\\Users\\Aston\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.0-rc.1.22426.7\\microsoft.entityframeworkcore.abstractions.7.0.0-rc.1.22426.7.nupkg.sha512",

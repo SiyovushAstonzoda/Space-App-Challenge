@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Dtos;
 using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
@@ -18,19 +19,19 @@ public class LocationController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<Response<List<Location>>> GetLocations()
+    public async Task<Response<List<GetLocationDto>>> GetLocations()
     {
         return await _locationService.GetLocations();
     }
 
     [HttpPost]
-    public async Task<Response<Location>> AddLocation(Location location)
+    public async Task<Response<AddLocationDto>> AddLocation(AddLocationDto location)
     {
         return await _locationService.AddLocation(location);
     }
 
     [HttpPut]
-    public async Task<Response<Location>> UpdateLocation(Location location)
+    public async Task<Response<AddLocationDto>> UpdateLocation(AddLocationDto location)
     {
         return await _locationService.UpdateLocation(location);
     }

@@ -1,7 +1,10 @@
 using Domain.Entities;
+using Domain.Dtos;
 using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
+using Microsoft.EntityFrameworkCore;
+
 namespace Infrastructure.Services;
 
 public class ParticipantService : IParticipantService
@@ -12,17 +15,26 @@ public class ParticipantService : IParticipantService
         _context = context;
     }
 
-    public async Task<Response<Participant>> AddParticipant(Participant participant)
+    public async Task<Response<AddParticipantDto>> AddParticipant(AddParticipantDto model)
     {
         try
         {
+            var participant = new Participant()
+            {
+                FullName = model.FullName,
+                Email = model.Email,
+                Phone = model.Phone,
+                Password = model.Password,
+                CreatedAt = model.CreatedAt
+            };
             await _context.Participants.AddAsync(participant);
             await _context.SaveChangesAsync();
-            return new Response<Participant>(participant);
+            model.Id = participant.Id;
+            return new Response<AddParticipantDto>(model);
         }
         catch (Exception ex)
         {
-            return new Response<Participant>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return new Response<AddParticipantDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
         }
     }
 
@@ -44,20 +56,29 @@ public class ParticipantService : IParticipantService
         }
     }
 
-    public async Task<Response<List<Participant>>> GetParticipants()
+    public async Task<Response<List<GetParticipantDto>>> GetParticipants()
     {
-        //pod voprosom
-        var result =  _context.Participants.ToList();
-        return new Response<List<Participant>>(result.ToList());
+        var participants = await _context.Participants.Select
+        (l=> new GetParticipantDto()
+        {
+            FullName = l.FullName,
+            Id = l.Id,
+            Email = l.Email,
+            Phone = l.Phone,
+            Password = l.Password,
+            CreatedAt = l.CreatedAt
+        }
+        ).ToListAsync();
+        return new Response<List<GetParticipantDto>>(participants);
     }
 
-    public async Task<Response<Participant>> UpdateParticipant(Participant participant)
+    public async Task<Response<AddParticipantDto>> UpdateParticipant(AddParticipantDto participant)
     {
         try
         {
             var record = await _context.Participants.FindAsync(participant.Id);
              //if not found it will return null
-            if(record == null) return new Response<Participant>(System.Net.HttpStatusCode.NotFound, "No record found");
+            if(record == null) return new Response<AddParticipantDto>(System.Net.HttpStatusCode.NotFound, "No record found");
 
             //pod voprosom
             record.FullName = participant.FullName;
@@ -65,15 +86,15 @@ public class ParticipantService : IParticipantService
             record.Phone = participant.Phone;
             record.Password = participant.Password;
             record.CreatedAt = participant.CreatedAt;
-            record.GroupId = participant.GroupId;
-            record.LocationId = participant.LocationId;
+            // record.GroupId = participant.GroupId;
+            // record.LocationId = participant.LocationId;
             await _context.SaveChangesAsync();
 
-            return new Response<Participant>(record);
+            return new Response<AddParticipantDto>(participant);
         }
         catch (Exception ex)
         {
-            return new Response<Participant>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return new Response<AddParticipantDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
         }
     }
 }

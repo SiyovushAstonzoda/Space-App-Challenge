@@ -1,4 +1,5 @@
 using Domain.Entities;
+using Domain.Dtos;
 using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
@@ -18,19 +19,19 @@ public class ChallengeController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<Response<List<Challenge>>> GetChallenges()
+    public async Task<Response<List<GetChallengeDto>>> GetChallenges()
     {
         return await _challengeService.GetChallenges();
     }
 
     [HttpPost]
-    public async Task<Response<Challenge>> AddChallenge(Challenge challenge)
+    public async Task<Response<AddChallengeDto>> AddChallenge(AddChallengeDto challenge)
     {
         return await _challengeService.AddChallenge(challenge);
     }
 
     [HttpPut]
-    public async Task<Response<Challenge>> UpdateChallenge(Challenge challenge)
+    public async Task<Response<AddChallengeDto>> UpdateChallenge(AddChallengeDto challenge)
     {
         return await _challengeService.UpdateChallenge(challenge);
     }

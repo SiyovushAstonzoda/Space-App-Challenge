@@ -1,11 +1,12 @@
 using Domain.Wrapper;
+using Domain.Dtos;
 using Domain.Entities;
 namespace Infrastructure.Interfaces;
 
 public interface IChallengeService
 {
-    Task<Response<List<Challenge>>> GetChallenges();
-    Task<Response<Challenge>> AddChallenge(Challenge challenge);
-    Task<Response<Challenge>> UpdateChallenge(Challenge challenge);
+    Task<Response<List<GetChallengeDto>>> GetChallenges();
+    Task<Response<AddChallengeDto>> AddChallenge(AddChallengeDto challenge);
+    Task<Response<AddChallengeDto>> UpdateChallenge(AddChallengeDto challenge);
     Task<Response<string>> DeleteChallenge(int Id);
 }

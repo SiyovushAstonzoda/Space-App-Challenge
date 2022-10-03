@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj": {}
+    "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {
+    "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj",
+        "projectUniqueName": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj",
+        "projectPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj",
         "packagesPath": "C:\\Users\\Aston\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\obj\\",
+        "outputPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aston\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -59,14 +59,14 @@
         }
       }
     },
-    "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj": {
+    "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj",
+        "projectPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Aston\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Infrastructure\\obj\\",
+        "outputPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aston\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -83,8 +83,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj"
+              "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj"
               }
             }
           }
@@ -128,14 +128,14 @@
         }
       }
     },
-    "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj": {
+    "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj",
+        "projectUniqueName": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj",
         "projectName": "SpaceApi",
-        "projectPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj",
+        "projectPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj",
         "packagesPath": "C:\\Users\\Aston\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\SpaceApi\\obj\\",
+        "outputPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\SpaceApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aston\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -152,11 +152,11 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj"
+              "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj": {
+                "projectPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Domain\\Domain.csproj"
               },
-              "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj": {
-                "projectPath": "C:\\Users\\Aston\\OneDrive\\Рабочий стол\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj"
+              "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj": {
+                "projectPath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\Infrastructure\\Infrastructure.csproj"
               }
             }
           }
