@@ -48,7 +48,7 @@ namespace Infrastructure.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     GroupNick = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
                     NeededMember = table.Column<bool>(type: "boolean", nullable: false),
-                    TeamSlogan = table.Column<string>(type: "text", nullable: true),
+                    TeamSlogan = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     ChallengeId = table.Column<int>(type: "integer", nullable: false)
                 },
@@ -69,9 +69,9 @@ namespace Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FullName = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    FullName = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
                     Email = table.Column<string>(type: "text", nullable: true),
-                    Phone = table.Column<string>(type: "text", nullable: true),
+                    Phone = table.Column<string>(type: "character varying(13)", maxLength: 13, nullable: false),
                     Password = table.Column<string>(type: "text", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     GroupId = table.Column<int>(type: "integer", nullable: false),

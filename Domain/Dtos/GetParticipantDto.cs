@@ -8,4 +8,9 @@ public class GetParticipantDto
     public string? Phone { get; set; }
     public string? Password { get; set; }
     public DateTime CreatedAt { get; set; }
+
+    public int GroupId { get; set; }
+    public string? GroupName { get; set; }
+    public int LocationId { get; set; }
+    public string? LocationName { get; set; }
 }

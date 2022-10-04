@@ -12,4 +12,7 @@ public class AddParticipantDto
     public string? Phone { get; set; }
     public string? Password { get; set; }
     public DateTime CreatedAt { get; set; }
+    
+    public int GroupId { get; set; }
+    public int LocationId { get; set; }
 }

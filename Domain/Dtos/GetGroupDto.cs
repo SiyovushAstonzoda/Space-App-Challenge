@@ -7,4 +7,7 @@ public class GetGroupDto
     public bool NeededMember { get; set; }
     public string? TeamSlogan { get; set; }
     public DateTime CreatedAt { get; set; }
+
+    public int ChallengeId { get; set; }
+    public string? ChallengeName { get; set; }
 }

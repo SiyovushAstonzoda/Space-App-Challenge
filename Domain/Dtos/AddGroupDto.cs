@@ -10,4 +10,5 @@ public class AddGroupDto
     [MaxLength(300), Required]
     public string? TeamSlogan { get; set; }
     public DateTime CreatedAt { get; set; }
+    public int ChallengeId { get; set; }
 }

@@ -24,7 +24,8 @@ public class GroupService : IGroupService
                 GroupNick = model.GroupNick,
                 NeededMember = model.NeededMember,
                 TeamSlogan = model.TeamSlogan,
-                CreatedAt = model.CreatedAt
+                CreatedAt = model.CreatedAt,
+                ChallengeId = model.ChallengeId
             };
             await _context.Groups.AddAsync(group);
             await _context.SaveChangesAsync();
@@ -56,15 +57,18 @@ public class GroupService : IGroupService
 
     public async Task<Response<List<GetGroupDto>>> GetGroups()
     {
-       //pod voprosom
-        var groups = await _context.Groups.Select(l=> new GetGroupDto()
-        {
-            GroupNick = l.GroupNick,
-            Id = l.Id,
-            NeededMember = l.NeededMember,
-            TeamSlogan = l.TeamSlogan,
-            CreatedAt = l.CreatedAt
-        }).ToListAsync();
+       var groups = await (from gr in _context.Groups
+                           join ch in _context.Challenges
+                           on gr.ChallengeId equals ch.Id
+                           select new GetGroupDto
+                           {
+                                ChallengeId = ch.Id,
+                                ChallengeName = ch.Name,
+                                GroupNick = gr.GroupNick,
+                                NeededMember = gr.NeededMember,
+                                TeamSlogan = gr.TeamSlogan,
+                                Id = gr.Id
+                           }).ToListAsync();
         return new Response<List<GetGroupDto>>(groups);
     }
 
@@ -81,7 +85,7 @@ public class GroupService : IGroupService
             record.NeededMember = group.NeededMember;
             record.TeamSlogan = group.TeamSlogan;
             record.CreatedAt = group.CreatedAt;
-            // record.ChallengeId = group.ChallengeId;
+            record.ChallengeId = group.ChallengeId;
             await _context.SaveChangesAsync();
 
             return new Response<AddGroupDto>(group);

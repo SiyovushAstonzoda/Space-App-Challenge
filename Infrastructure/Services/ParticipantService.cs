@@ -25,7 +25,9 @@ public class ParticipantService : IParticipantService
                 Email = model.Email,
                 Phone = model.Phone,
                 Password = model.Password,
-                CreatedAt = model.CreatedAt
+                CreatedAt = model.CreatedAt,
+                GroupId = model.GroupId,
+                LocationId = model.LocationId
             };
             await _context.Participants.AddAsync(participant);
             await _context.SaveChangesAsync();
@@ -58,17 +60,22 @@ public class ParticipantService : IParticipantService
 
     public async Task<Response<List<GetParticipantDto>>> GetParticipants()
     {
-        var participants = await _context.Participants.Select
-        (l=> new GetParticipantDto()
-        {
-            FullName = l.FullName,
-            Id = l.Id,
-            Email = l.Email,
-            Phone = l.Phone,
-            Password = l.Password,
-            CreatedAt = l.CreatedAt
-        }
-        ).ToListAsync();
+         var participants = await (from pa in _context.Participants
+                           join gr in _context.Groups
+                           on pa.GroupId equals gr.Id
+                           join lo in _context.Locations
+                           on pa.LocationId equals lo.Id
+                           select new GetParticipantDto
+                           {
+                                Id = pa.Id,
+                                FullName = pa.FullName,
+                                Email = pa.Email,
+                                Phone = pa.Phone,
+                                Password = pa.Password,
+                                CreatedAt = pa.CreatedAt,
+                                GroupName = gr.GroupNick,
+                                LocationName = lo.Name
+                           }).ToListAsync();
         return new Response<List<GetParticipantDto>>(participants);
     }
 
@@ -86,8 +93,8 @@ public class ParticipantService : IParticipantService
             record.Phone = participant.Phone;
             record.Password = participant.Password;
             record.CreatedAt = participant.CreatedAt;
-            // record.GroupId = participant.GroupId;
-            // record.LocationId = participant.LocationId;
+            record.GroupId = participant.GroupId;
+            record.LocationId = participant.LocationId;
             await _context.SaveChangesAsync();
 
             return new Response<AddParticipantDto>(participant);
