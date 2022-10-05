@@ -1,4 +1,5 @@
 namespace Domain.Dtos;
+using Domain.Dtos;
 
 public class GetGroupDto
 {
@@ -10,4 +11,5 @@ public class GetGroupDto
 
     public int ChallengeId { get; set; }
     public string? ChallengeName { get; set; }
+    public List<GetParticipantDto>? Participants { get; set; }
 }

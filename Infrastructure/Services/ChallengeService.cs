@@ -53,17 +53,47 @@ public class ChallengeService : IChallengeService
         }
     }
 
+    // public async Task<Response<List<GetChallengeDto>>> GetChallenges()
+    // {
+    //     var challenges = await _context.Challenges.Select
+    //     (l=> new GetChallengeDto()
+    //     {
+    //         Description = l.Description,
+    //         Id = l.Id,
+    //         Name = l.Name
+    //     }
+    //     ).ToListAsync();
+    //     return new Response<List<GetChallengeDto>>(challenges);
+    // }
+
     public async Task<Response<List<GetChallengeDto>>> GetChallenges()
     {
-        var challenges = await _context.Challenges.Select
-        (l=> new GetChallengeDto()
-        {
-            Description = l.Description,
-            Id = l.Id,
-            Name = l.Name
-        }
+        var result = await
+        (
+            from ch in _context.Challenges
+            select new GetChallengeDto()
+            {
+                Description = ch.Description,
+                Id = ch.Id,
+                Name = ch.Name,
+                Groups =
+                (
+                    from g in _context.Groups
+                    where g.ChallengeId == ch.Id
+                    select new GetGroupDto()
+                    {
+                        // ChallengeId = g.ChallengeId,
+                        ChallengeId = ch.Id,
+                        ChallengeName = ch.Name,
+                        GroupNick = g.GroupNick,
+                        NeededMember = g.NeededMember,
+                        TeamSlogan = g.TeamSlogan,
+                        Id = g.Id
+                    }
+                ).ToList(),
+            }
         ).ToListAsync();
-        return new Response<List<GetChallengeDto>>(challenges);
+        return new Response<List<GetChallengeDto>>(result);
     }
 
     public async Task<Response<AddChallengeDto>> UpdateChallenge(AddChallengeDto challenge)

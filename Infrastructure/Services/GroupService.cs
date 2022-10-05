@@ -72,6 +72,44 @@ public class GroupService : IGroupService
         return new Response<List<GetGroupDto>>(groups);
     }
 
+    public async Task<Response<List<GetGroupDto>>> GetGroupsWithParticipants()
+    {
+       var groups = await
+       (
+            from gr in _context.Groups
+            join ch in _context.Challenges
+            on gr.ChallengeId equals ch.Id
+            select new GetGroupDto()
+            {
+                ChallengeId = ch.Id,
+                ChallengeName = ch.Name,
+                GroupNick = gr.GroupNick,
+                NeededMember = gr.NeededMember,
+                TeamSlogan = gr.TeamSlogan,
+                Id = gr.Id,
+                Participants = 
+                (
+                    from pa in _context.Participants
+                    where gr.Id == pa.GroupId
+                    join lo in _context.Locations
+                    on pa.LocationId equals lo.Id
+                    select new GetParticipantDto
+                    {
+                        Id = pa.Id,
+                        FullName = pa.FullName,
+                        Email = pa.Email,
+                        Phone = pa.Phone,
+                        Password = pa.Password,
+                        CreatedAt = pa.CreatedAt,
+                        GroupName = gr.GroupNick,
+                        LocationName = lo.Name
+                    }
+                ).ToList(),
+            }
+            ).ToListAsync();
+        return new Response<List<GetGroupDto>>(groups);
+    }
+
     public async Task<Response<AddGroupDto>> UpdateGroup(AddGroupDto group)
     {
         try

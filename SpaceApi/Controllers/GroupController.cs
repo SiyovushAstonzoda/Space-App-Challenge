@@ -18,10 +18,16 @@ public class GroupController : ControllerBase
         _groupService = groupService;
     }
 
-    [HttpGet]
+    [HttpGet("GetGroups")]
     public async Task<Response<List<GetGroupDto>>> GetGroups()
     {
         return await _groupService.GetGroups();
+    }
+
+    [HttpGet("GetGroupsWithParticipants")]
+    public async Task<Response<List<GetGroupDto>>> GetGroupsWithParticipants()
+    {
+        return await _groupService.GetGroupsWithParticipants();
     }
 
     [HttpPost]
