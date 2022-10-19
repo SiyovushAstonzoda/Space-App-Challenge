@@ -9,6 +9,11 @@ public class AddGroupDto
     public bool NeededMember { get; set; }
     [MaxLength(300), Required]
     public string? TeamSlogan { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
     public int ChallengeId { get; set; }
+
+    public AddGroupDto()
+    {
+        CreatedAt = DateTimeOffset.Now;
+    }
 }

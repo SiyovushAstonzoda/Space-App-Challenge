@@ -11,8 +11,13 @@ public class AddParticipantDto
     [Required,MaxLength(13)]
     public string? Phone { get; set; }
     public string? Password { get; set; }
-    public DateTime CreatedAt { get; set; }
+    public DateTimeOffset CreatedAt { get; set; }
     
     public int GroupId { get; set; }
     public int LocationId { get; set; }
+
+    public AddParticipantDto()
+    {
+        CreatedAt = DateTimeOffset.Now;
+    }
 }

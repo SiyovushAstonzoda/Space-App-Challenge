@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "t6zUSF9ecBE4yD5S40VNeX3XpGKLyNYe4w53cGoHXBs+0gEz7GNZFDuNf8g1QSiwnM5ZLvVFd64TSlegkyh19A==",
+  "dgSpecHash": "tDY+KOhOwxjx92tLFJ9nxx7z+BSz72a4OVKn1LzNMtcDPvJaQqZJjh5vVUIyOXrt4A9AjGKLeqLYer3lC+coNQ==",
   "success": true,
   "projectFilePath": "D:\\Soft-Club\\SoftClub Exams\\Siyovush Astonzoda API Exam 3\\SpaceApi\\SpaceApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Aston\\.nuget\\packages\\automapper\\12.0.0\\automapper.12.0.0.nupkg.sha512",
+    "C:\\Users\\Aston\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\12.0.0\\automapper.extensions.microsoft.dependencyinjection.12.0.0.nupkg.sha512",
     "C:\\Users\\Aston\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Aston\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Aston\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.0-rc.1.22426.7\\microsoft.entityframeworkcore.7.0.0-rc.1.22426.7.nupkg.sha512",
     "C:\\Users\\Aston\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\7.0.0-rc.1.22426.7\\microsoft.entityframeworkcore.abstractions.7.0.0-rc.1.22426.7.nupkg.sha512",
     "C:\\Users\\Aston\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\7.0.0-rc.1.22426.7\\microsoft.entityframeworkcore.analyzers.7.0.0-rc.1.22426.7.nupkg.sha512",

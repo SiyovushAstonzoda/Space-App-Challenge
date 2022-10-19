@@ -2,12 +2,14 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Context;
 using Infrastructure.Services;
 using Infrastructure.Interfaces;
+using Infrastructure.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddAutoMapper(typeof(ServiceProfile));
 builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddScoped<ILocationService, LocationService>();

@@ -24,6 +24,12 @@ public class ChallengeController : ControllerBase
         return await _challengeService.GetChallenges();
     }
 
+    [HttpGet("GetChallengeById")]
+    public async Task<Response<GetChallengeDto>> GetChallengeById(int id)
+    {
+        return await _challengeService.GetChallengeById(id);
+    }
+
     [HttpPost]
     public async Task<Response<AddChallengeDto>> AddChallenge(AddChallengeDto challenge)
     {

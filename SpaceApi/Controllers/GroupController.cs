@@ -5,6 +5,7 @@ using Infrastructure.Context;
 using Infrastructure.Interfaces;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
+using global::AutoMapper;
 
 namespace SpaceApi.Controllers;
 

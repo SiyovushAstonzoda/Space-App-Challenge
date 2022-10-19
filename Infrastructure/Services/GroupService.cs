@@ -4,32 +4,28 @@ using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using global::AutoMapper;
 
 namespace Infrastructure.Services;
 
 public class GroupService : IGroupService
 {
     private readonly DataContext _context;
-    public GroupService(DataContext context)
+    private readonly IMapper _mapper;
+    public GroupService(DataContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
-    public async Task<Response<AddGroupDto>> AddGroup(AddGroupDto model)
+    public async Task<Response<AddGroupDto>> AddGroup(AddGroupDto group)
     {
         try
         {
-            var group = new Group()
-            {
-                GroupNick = model.GroupNick,
-                NeededMember = model.NeededMember,
-                TeamSlogan = model.TeamSlogan,
-                CreatedAt = model.CreatedAt,
-                ChallengeId = model.ChallengeId
-            };
-            await _context.Groups.AddAsync(group);
+            Group? mapped = _mapper.Map<Group>(group);
+            await _context.Groups.AddAsync(mapped);
             await _context.SaveChangesAsync();
-            return new Response<AddGroupDto>(model);
+            return new Response<AddGroupDto>(_mapper.Map<AddGroupDto>(mapped));
         }
         catch (Exception ex)
         {
@@ -101,7 +97,9 @@ public class GroupService : IGroupService
                         Phone = pa.Phone,
                         Password = pa.Password,
                         CreatedAt = pa.CreatedAt,
+                        GroupId = gr.Id,
                         GroupName = gr.GroupNick,
+                        LocationId = lo.Id,
                         LocationName = lo.Name
                     }
                 ).ToList(),
@@ -114,19 +112,12 @@ public class GroupService : IGroupService
     {
         try
         {
-            var record = await _context.Groups.FindAsync(group.Id);
-             //if not found it will return null
-            if(record == null) return new Response<AddGroupDto>(System.Net.HttpStatusCode.NotFound, "No record found");
-
-            //pod voprosom
-            record.GroupNick = group.GroupNick;
-            record.NeededMember = group.NeededMember;
-            record.TeamSlogan = group.TeamSlogan;
-            record.CreatedAt = group.CreatedAt;
-            record.ChallengeId = group.ChallengeId;
+            Group? mapped = _mapper.Map<Group>(group);
+            _context.Groups.Attach(mapped);
+            _context.Entry(mapped).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return new Response<AddGroupDto>(group);
+            return new Response<AddGroupDto>(_mapper.Map<AddGroupDto>(mapped));
         }
         catch (Exception ex)
         {

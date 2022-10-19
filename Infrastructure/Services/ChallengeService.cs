@@ -4,30 +4,28 @@ using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using AutoMapper;
 
 namespace Infrastructure.Services;
 
 public class ChallengeService : IChallengeService
 {
     private readonly DataContext _context;
-    public ChallengeService(DataContext context)
+    private readonly IMapper _mapper;
+    public ChallengeService(DataContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
 
-    public async Task<Response<AddChallengeDto>> AddChallenge(AddChallengeDto model)
+    public async Task<Response<AddChallengeDto>> AddChallenge(AddChallengeDto challenge)
     {
         try
         {
-            var challenge = new Challenge()
-            {
-                Description = model.Description,
-                Name = model.Name
-            };
-            await _context.Challenges.AddAsync(challenge);
+            Challenge mapped = _mapper.Map<Challenge>(challenge);
+            await _context.Challenges.AddAsync(mapped);
             await _context.SaveChangesAsync();
-            model.Id = challenge.Id;
-            return new Response<AddChallengeDto>(model);
+            return new Response<AddChallengeDto>(_mapper.Map<AddChallengeDto>(mapped));
         }
         catch (Exception ex)
         {
@@ -68,48 +66,26 @@ public class ChallengeService : IChallengeService
 
     public async Task<Response<List<GetChallengeDto>>> GetChallenges()
     {
-        var result = await
-        (
-            from ch in _context.Challenges
-            select new GetChallengeDto()
-            {
-                Description = ch.Description,
-                Id = ch.Id,
-                Name = ch.Name,
-                Groups =
-                (
-                    from g in _context.Groups
-                    where g.ChallengeId == ch.Id
-                    select new GetGroupDto()
-                    {
-                        // ChallengeId = g.ChallengeId,
-                        ChallengeId = ch.Id,
-                        ChallengeName = ch.Name,
-                        GroupNick = g.GroupNick,
-                        NeededMember = g.NeededMember,
-                        TeamSlogan = g.TeamSlogan,
-                        Id = g.Id
-                    }
-                ).ToList(),
-            }
-        ).ToListAsync();
-        return new Response<List<GetChallengeDto>>(result);
+        var challenge = _mapper.Map<List<GetChallengeDto>>(await _context.Challenges.ToListAsync());
+        return new Response<List<GetChallengeDto>>(challenge);
+    }
+
+     public async Task<Response<GetChallengeDto>> GetChallengeById(int id)
+    {
+        var result = _mapper.Map<GetChallengeDto>(await _context.Challenges.FindAsync(id));
+        return new Response<GetChallengeDto>(result);
     }
 
     public async Task<Response<AddChallengeDto>> UpdateChallenge(AddChallengeDto challenge)
     {
         try
         {
-            var record = await _context.Challenges.FindAsync(challenge.Id);
-             //if not found it will return null
-            if(record == null) return new Response<AddChallengeDto>(System.Net.HttpStatusCode.NotFound, "No record found");
-
-            //pod voprosom
-            record.Name = challenge.Name;
-            record.Name = challenge.Description;
+            Challenge? mapped = _mapper.Map<Challenge>(challenge);
+            _context.Challenges.Attach(mapped);
+            _context.Entry(mapped).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return new Response<AddChallengeDto>(challenge);
+            return new Response<AddChallengeDto>(_mapper.Map<AddChallengeDto>(mapped));
         }
         catch (Exception ex)
         {
