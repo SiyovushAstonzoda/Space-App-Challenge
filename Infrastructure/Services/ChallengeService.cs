@@ -1,95 +1,93 @@
 using Domain.Entities;
 using Domain.Dtos;
-using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using AutoMapper;
 
 namespace Infrastructure.Services;
 
 public class ChallengeService : IChallengeService
 {
     private readonly DataContext _context;
-    private readonly IMapper _mapper;
-    public ChallengeService(DataContext context, IMapper mapper)
+    public ChallengeService(DataContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
-    public async Task<Response<AddChallengeDto>> AddChallenge(AddChallengeDto challenge)
+    public async Task<AddChallengeDto> AddChallenge(AddChallengeDto challengeDto)
     {
-        try
+        var challenge = new Challenge
         {
-            Challenge mapped = _mapper.Map<Challenge>(challenge);
-            await _context.Challenges.AddAsync(mapped);
-            await _context.SaveChangesAsync();
-            return new Response<AddChallengeDto>(_mapper.Map<AddChallengeDto>(mapped));
-        }
-        catch (Exception ex)
-        {
-            return new Response<AddChallengeDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
-        }
+            Name = challengeDto.Name,
+            Description = challengeDto.Description
+        };
+
+        await _context.Challenges.AddAsync(challenge);
+        await _context.SaveChangesAsync();
+
+        challengeDto.Id = challenge.Id;
+
+        var challengeCreated = await GetChallengeById(challenge.Id);
+        return challengeCreated;
     }
 
-    public async Task<Response<string>> DeleteChallenge(int Id)
+    public async Task<bool> DeleteChallenge(int id)
     {
-         try
-        {
-         var record = await _context.Challenges.FindAsync(Id);
+        var challenge = await _context.Challenges.FirstOrDefaultAsync(e => e.Id == id);
 
-         if(record == null) return new Response<string>(System.Net.HttpStatusCode.NotFound, "Not found");
-
-         _context.Challenges.Remove(record);
-         await _context.SaveChangesAsync();
-         return new Response<string>("success");
-        }
-        catch (Exception ex)
+        if (challenge == null)
         {
-            return new Response<string>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return false;
         }
+
+        _context.Challenges.Remove(challenge);
+        await _context.SaveChangesAsync();
+
+        return true;
     }
 
-    // public async Task<Response<List<GetChallengeDto>>> GetChallenges()
-    // {
-    //     var challenges = await _context.Challenges.Select
-    //     (l=> new GetChallengeDto()
-    //     {
-    //         Description = l.Description,
-    //         Id = l.Id,
-    //         Name = l.Name
-    //     }
-    //     ).ToListAsync();
-    //     return new Response<List<GetChallengeDto>>(challenges);
-    // }
-
-    public async Task<Response<List<GetChallengeDto>>> GetChallenges()
+    public async Task<List<GetChallengeDto>> GetChallenges()
     {
-        var challenge = _mapper.Map<List<GetChallengeDto>>(await _context.Challenges.ToListAsync());
-        return new Response<List<GetChallengeDto>>(challenge);
+        var challenges = await _context.Challenges
+            .Select(l=> new GetChallengeDto
+        {
+            Id = l.Id,
+            Description = l.Description,
+            Name = l.Name
+        }
+        ).ToListAsync();
+        return challenges;
     }
 
-     public async Task<Response<GetChallengeDto>> GetChallengeById(int id)
+    public async Task<AddChallengeDto> GetChallengeById(int id)
     {
-        var result = _mapper.Map<GetChallengeDto>(await _context.Challenges.FindAsync(id));
-        return new Response<GetChallengeDto>(result);
+        var challenge = await _context.Challenges
+            .Select(e => new AddChallengeDto()
+            {
+                Id = e.Id,
+                Name = e.Name,
+                Description = e.Description
+            })
+            .FirstOrDefaultAsync(e => e.Id == id);
+
+        return challenge;
     }
 
-    public async Task<Response<AddChallengeDto>> UpdateChallenge(AddChallengeDto challenge)
+    public async Task<AddChallengeDto> UpdateChallenge(AddChallengeDto challengeDto)
     {
-        try
-        {
-            Challenge? mapped = _mapper.Map<Challenge>(challenge);
-            _context.Challenges.Attach(mapped);
-            _context.Entry(mapped).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+        var challenge = await _context.Challenges.FirstOrDefaultAsync(e => e.Id == challengeDto.Id);
 
-            return new Response<AddChallengeDto>(_mapper.Map<AddChallengeDto>(mapped));
-        }
-        catch (Exception ex)
+        if (challenge == null)
         {
-            return new Response<AddChallengeDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return null;
         }
+
+        challenge.Name = challengeDto.Name;
+        challenge.Description = challengeDto.Description;
+
+        await _context.SaveChangesAsync();
+
+        var challengeUpdated = await GetChallengeById(challenge.Id);
+        return challengeUpdated;
     }
 }

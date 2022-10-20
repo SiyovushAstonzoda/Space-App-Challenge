@@ -1,6 +1,5 @@
 using Domain.Entities;
 using Domain.Dtos;
-using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -15,50 +14,45 @@ public class ParticipantService : IParticipantService
         _context = context;
     }
 
-    public async Task<Response<AddParticipantDto>> AddParticipant(AddParticipantDto model)
+    public async Task<AddParticipantDto> AddParticipant(AddParticipantDto participantDto)
     {
-        try
-        {
-            var participant = new Participant()
+        var participant = new Participant
             {
-                FullName = model.FullName,
-                Email = model.Email,
-                Phone = model.Phone,
-                Password = model.Password,
-                CreatedAt = model.CreatedAt,
-                GroupId = model.GroupId,
-                LocationId = model.LocationId
+                FullName = participantDto.FullName,
+                Email = participantDto.Email,
+                Phone = participantDto.Phone,
+                Password = participantDto.Password,
+                CreatedAt = participantDto.CreatedAt,
+                GroupId = participantDto.GroupId,
+                LocationId = participantDto.LocationId
             };
+
             await _context.Participants.AddAsync(participant);
             await _context.SaveChangesAsync();
-            model.Id = participant.Id;
-            return new Response<AddParticipantDto>(model);
-        }
-        catch (Exception ex)
-        {
-            return new Response<AddParticipantDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
-        }
+
+            participantDto.Id = participant.Id;
+
+
+             var participantCreated = await GetParticipantById(participant.Id);
+             return participantCreated;
     }
 
-    public async Task<Response<string>> DeleteParticipant(int Id)
+    public async Task<bool> DeleteParticipant(int id)
     {
-         try
-        {
-         var record = await _context.Participants.FindAsync(Id);
+        var participant = await _context.Participants.FirstOrDefaultAsync(e => e.Id == id);
 
-         if(record == null) return new Response<string>(System.Net.HttpStatusCode.NotFound, "Not found");
-
-         _context.Participants.Remove(record);
-         await _context.SaveChangesAsync();
-         return new Response<string>("success");
-        }
-        catch (Exception ex)
+        if (participant == null)
         {
-            return new Response<string>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return false;
         }
+
+        _context.Participants.Remove(participant);
+        await _context.SaveChangesAsync();
+
+        return true;
     }
 
-    public async Task<Response<List<GetParticipantDto>>> GetParticipants()
+    public async Task<List<GetParticipantDto>> GetParticipants()
     {
          var participants = await (from pa in _context.Participants
                            join gr in _context.Groups
@@ -76,32 +70,50 @@ public class ParticipantService : IParticipantService
                                 GroupName = gr.GroupNick,
                                 LocationName = lo.Name
                            }).ToListAsync();
-        return new Response<List<GetParticipantDto>>(participants);
+        return participants;
     }
 
-    public async Task<Response<AddParticipantDto>> UpdateParticipant(AddParticipantDto participant)
+    public async Task<AddParticipantDto> GetParticipantById(int id)
     {
-        try
-        {
-            var record = await _context.Participants.FindAsync(participant.Id);
-             //if not found it will return null
-            if(record == null) return new Response<AddParticipantDto>(System.Net.HttpStatusCode.NotFound, "No record found");
+        var participant = await _context.Participants
+            .Select(pa => new AddParticipantDto()
+            {
+                Id = pa.Id,
+                FullName = pa.FullName,
+                Email = pa.Email,
+                Phone = pa.Phone,
+                Password = pa.Password,
+                CreatedAt = pa.CreatedAt,
+                GroupId = pa.GroupId,
+                LocationId = pa.LocationId,
+            })
+            .FirstOrDefaultAsync(tu => tu.Id == id);
 
-            //pod voprosom
-            record.FullName = participant.FullName;
-            record.Email = participant.Email;
-            record.Phone = participant.Phone;
-            record.Password = participant.Password;
-            record.CreatedAt = participant.CreatedAt;
-            record.GroupId = participant.GroupId;
-            record.LocationId = participant.LocationId;
+        return participant;
+    }
+
+    public async Task<AddParticipantDto> UpdateParticipant(AddParticipantDto participantDto)
+    {
+
+            var participant = await _context.Participants.FirstOrDefaultAsync(pa => pa.Id == participantDto.Id);
+
+            if (participant == null)
+            {
+                return null;
+            }
+
+
+            participant.FullName = participantDto.FullName;
+            participant.Email = participantDto.Email;
+            participant.Phone = participantDto.Phone;
+            participant.Password = participantDto.Password;
+            participant.CreatedAt = participantDto.CreatedAt;
+            participant.GroupId = participantDto.GroupId;
+            participant.LocationId = participantDto.LocationId;
+
             await _context.SaveChangesAsync();
 
-            return new Response<AddParticipantDto>(participant);
-        }
-        catch (Exception ex)
-        {
-            return new Response<AddParticipantDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
-        }
+            var participantUpdated = await GetParticipantById(participant.Id);
+            return participantUpdated;
     }
 }

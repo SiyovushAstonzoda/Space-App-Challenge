@@ -5,8 +5,9 @@ namespace Infrastructure.Interfaces;
 
 public interface ILocationService
 {
-    Task<Response<List<GetLocationDto>>> GetLocations();
-    Task<Response<AddLocationDto>> AddLocation(AddLocationDto location);
-    Task<Response<AddLocationDto>> UpdateLocation(AddLocationDto location);
-    Task<Response<string>> DeleteLocation(int Id);
+    Task<List<GetLocationDto>> GetLocations();
+    Task<AddLocationDto> GetLocationById(int id);
+    Task<AddLocationDto> AddLocation(AddLocationDto locationDto);
+    Task<AddLocationDto> UpdateLocation(AddLocationDto locationDto);
+    Task<bool> DeleteLocation(int id);
 }

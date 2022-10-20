@@ -1,0 +1,44 @@
+﻿@using Domain.Wrapper;
+@using Domain.Dtos;
+@model List<GetGroupDto>
+<!-- Jumbotron -->
+<div
+    class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+    style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');"
+>
+    <h1 class="mb-3 h2">Group</h1>
+</div>
+<!-- Jumbotron -->
+
+<a class="btn btn-primary" href="/group/add" role="button">Create</a>
+<table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+    <tr>
+        <th>#</th>
+        <th>Group Nick</th>
+        <th>Needed Member</th>
+        <th>Team Slogan</th>
+        <th>Created At</th>
+        <th>Challenge Id</th>
+        <th>Challenge Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var group in Model)
+    {
+        <tr>
+            <th scope="row">@group.Id</th>
+                <td>@group.GroupNick</td>
+                <td>@group.NeededMember</td>
+                <td>@group.TeamSlogan</td>
+                <td>@group.CreatedAt</td>
+                <td>@group.ChallengeId</td>
+                <td>@group.ChallengeName</td>
+            <td>
+                <a href="/group/update/@group.Id">Edit</a>
+                <a href="/group/delete/@group.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

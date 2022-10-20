@@ -5,9 +5,10 @@ namespace Infrastructure.Interfaces;
 
 public interface IGroupService
 {
-    Task<Response<List<GetGroupDto>>> GetGroups();
-    Task<Response<List<GetGroupDto>>> GetGroupsWithParticipants();
-    Task<Response<AddGroupDto>> AddGroup(AddGroupDto group);
-    Task<Response<AddGroupDto>> UpdateGroup(AddGroupDto group);
-    Task<Response<string>> DeleteGroup(int Id);
+    Task<List<GetGroupDto>> GetGroups();
+    Task<List<GetGroupDto>> GetGroupsWithParticipants();
+    Task<AddGroupDto> GetGroupById(int id);
+    Task<AddGroupDto> AddGroup(AddGroupDto groupDto);
+    Task<AddGroupDto> UpdateGroup(AddGroupDto groupDto);
+    Task<bool> DeleteGroup(int id);
 }

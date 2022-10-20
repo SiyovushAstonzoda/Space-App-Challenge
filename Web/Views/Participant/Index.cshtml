@@ -1,0 +1,50 @@
+﻿@using Domain.Wrapper;
+@using Domain.Dtos;
+@model List<GetParticipantDto>
+<!-- Jumbotron -->
+<div
+    class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+    style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');"
+>
+    <h1 class="mb-3 h2">Participant</h1>
+</div>
+<!-- Jumbotron -->
+
+<a class="btn btn-primary" href="/participant/add" role="button">Create</a>
+<table class="table align-middle mb-0 bg-white">
+    <thead class="bg-light">
+    <tr>
+        <th>#</th>
+        <th>FullName</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Password</th>
+        <th>Created At</th>
+        <th>Group Id</th>
+        <th>Group Name</th>
+        <th>Location Id</th> 
+        <th>Location Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var participant in Model)
+    {
+        <tr>
+                <th scope="row">@participant.Id</th>
+                <td>@participant.FullName</td>
+                <td>@participant.Email</td>
+                <td>@participant.Phone</td>
+                <td>@participant.Password</td>
+                <td>@participant.CreatedAt</td>
+                <td>@participant.GroupId</td>
+                <td>@participant.GroupName</td>
+                <td>@participant.LocationId</td>
+                <td>@participant.LocationName</td>
+            <td>
+                    <a href="/participant/update/@participant.Id">Edit</a>
+                    <a href="/participant/delete/@participant.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

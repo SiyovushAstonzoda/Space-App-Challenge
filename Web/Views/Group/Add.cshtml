@@ -1,0 +1,47 @@
+﻿@model Domain.Dtos.AddGroupDto
+<!-- Jumbotron -->
+<div
+    class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+    style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');"
+>
+    <h1 class="mb-3 h2">Group</h1>
+</div>
+<!-- Jumbotron -->
+
+<form method="post" asp-action="Add">
+    <div class="form-group">
+        <label>Group Nick</label>
+        <input asp-for="GroupNick" type="text" class="form-control" placeholder="Enter group nick">
+        <span class="text-danger" asp-validation-for="GroupNick"></span>
+    </div>
+    <div class="form-group">
+        <label>Needed Member?</label>
+        <textarea asp-for="NeededMember" class="form-control" placeholder="Enter needed member"></textarea>
+        <span class="text-danger" asp-validation-for="NeededMember"></span>
+    </div>
+    <div class="form-group">
+        <label>Team Slogan</label>
+        <textarea asp-for="TeamSlogan" class="form-control" placeholder="Enter team slogan"></textarea>
+        <span class="text-danger" asp-validation-for="TeamSlogan"></span>
+    </div>
+    <div class="form-group">
+        <label>Created At</label>
+        <textarea asp-for="CreatedAt" class="form-control" placeholder="Set when created the group"></textarea>
+        <span class="text-danger" asp-validation-for="CreatedAt"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Challenge</label>
+        <select asp-for="ChallengeId" class="custom-select form-control" id="inputGroupSelect04">
+            <option selected>Choose...</option>
+            @foreach (var challenge in ViewBag.Challenges)
+            {
+                <option value="@challenge.Id">@challenge.Name</option>
+            }
+        </select>
+        <span asp-validation-for="ChallengeId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+

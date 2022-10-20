@@ -1,57 +1,55 @@
 using Domain.Entities;
 using Domain.Dtos;
-using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using global::AutoMapper;
 
 namespace Infrastructure.Services;
 
 public class GroupService : IGroupService
 {
     private readonly DataContext _context;
-    private readonly IMapper _mapper;
-    public GroupService(DataContext context, IMapper mapper)
+    public GroupService(DataContext context)
     {
         _context = context;
-        _mapper = mapper;
     }
 
-    public async Task<Response<AddGroupDto>> AddGroup(AddGroupDto group)
+    public async Task<AddGroupDto> AddGroup(AddGroupDto groupDto)
     {
-        try
+        var group = new Group
         {
-            Group? mapped = _mapper.Map<Group>(group);
-            await _context.Groups.AddAsync(mapped);
-            await _context.SaveChangesAsync();
-            return new Response<AddGroupDto>(_mapper.Map<AddGroupDto>(mapped));
-        }
-        catch (Exception ex)
-        {
-            return new Response<AddGroupDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
-        }
+            GroupNick = groupDto.GroupNick,
+            NeededMember = groupDto.NeededMember,
+            TeamSlogan = groupDto.TeamSlogan,
+            CreatedAt = groupDto.CreatedAt,
+            ChallengeId = groupDto.ChallengeId,
+        };
+
+        await _context.Groups.AddAsync(group);
+        await _context.SaveChangesAsync();
+
+        groupDto.Id = group.Id;
+
+        var challengeCreated = await GetGroupById(group.Id);
+        return challengeCreated;
     }
 
-    public async Task<Response<string>> DeleteGroup(int Id)
+    public async Task<bool> DeleteGroup(int id)
     {
-        try
-        {
-         var record = await _context.Groups.FindAsync(Id);
+        var group = await _context.Groups.FirstOrDefaultAsync(e => e.Id == id);
 
-         if(record == null) return new Response<string>(System.Net.HttpStatusCode.NotFound, "Not found");
-
-         _context.Groups.Remove(record);
-         await _context.SaveChangesAsync();
-         return new Response<string>("success");
-        }
-        catch (Exception ex)
+        if (group == null)
         {
-            return new Response<string>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return false;
         }
+
+        _context.Groups.Remove(group);
+        await _context.SaveChangesAsync();
+
+        return true;
     }
 
-    public async Task<Response<List<GetGroupDto>>> GetGroups()
+    public async Task<List<GetGroupDto>> GetGroups()
     {
        var groups = await (from gr in _context.Groups
                            join ch in _context.Challenges
@@ -65,10 +63,27 @@ public class GroupService : IGroupService
                                 TeamSlogan = gr.TeamSlogan,
                                 Id = gr.Id
                            }).ToListAsync();
-        return new Response<List<GetGroupDto>>(groups);
+        return groups;
     }
 
-    public async Task<Response<List<GetGroupDto>>> GetGroupsWithParticipants()
+    public async Task<AddGroupDto> GetGroupById(int id)
+    {
+        var group = await _context.Groups
+            .Select(gr => new AddGroupDto()
+            {
+                Id = gr.Id,
+                GroupNick = gr.GroupNick,
+                NeededMember = gr.NeededMember,
+                TeamSlogan = gr.TeamSlogan,
+                CreatedAt = gr.CreatedAt,
+                ChallengeId = gr.ChallengeId
+            })
+            .FirstOrDefaultAsync(tu => tu.Id == id);
+
+        return group;
+    }
+
+    public async Task<List<GetGroupDto>> GetGroupsWithParticipants()
     {
        var groups = await
        (
@@ -105,23 +120,27 @@ public class GroupService : IGroupService
                 ).ToList(),
             }
             ).ToListAsync();
-        return new Response<List<GetGroupDto>>(groups);
+        return groups;
     }
 
-    public async Task<Response<AddGroupDto>> UpdateGroup(AddGroupDto group)
+    public async Task<AddGroupDto> UpdateGroup(AddGroupDto groupDto)
     {
-        try
-        {
-            Group? mapped = _mapper.Map<Group>(group);
-            _context.Groups.Attach(mapped);
-            _context.Entry(mapped).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
+        var group = await _context.Groups.FirstOrDefaultAsync(e => e.Id == groupDto.Id);
 
-            return new Response<AddGroupDto>(_mapper.Map<AddGroupDto>(mapped));
-        }
-        catch (Exception ex)
+        if (group == null)
         {
-            return new Response<AddGroupDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return null;
         }
+
+        group.GroupNick = groupDto.GroupNick;
+        group.NeededMember = groupDto.NeededMember;
+        group.TeamSlogan = groupDto.TeamSlogan;
+        group.CreatedAt = groupDto.CreatedAt;
+        group.ChallengeId = groupDto.ChallengeId;
+
+        await _context.SaveChangesAsync();
+
+        var groupUpdated = await GetGroupById(group.Id);
+        return groupUpdated;
     }
 }

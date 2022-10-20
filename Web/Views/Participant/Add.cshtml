@@ -1,0 +1,62 @@
+﻿@model Domain.Dtos.AddParticipantDto
+<!-- Jumbotron -->
+<div
+    class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+    style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');"
+>
+    <h1 class="mb-3 h2">Participant</h1>
+</div>
+<!-- Jumbotron -->
+
+<form method="post" asp-action="Add">
+    <div class="form-group">
+        <label>Full Name</label>
+        <input asp-for="FullName" type="text" class="form-control" placeholder="Enter full name">
+        <span class="text-danger" asp-validation-for="FullName"></span>
+    </div>
+    <div class="form-group">
+        <label>Email</label>
+        <textarea asp-for="Email" class="form-control" placeholder="Enter email"></textarea>
+        <span class="text-danger" asp-validation-for="Email"></span>
+    </div>
+    <div class="form-group">
+        <label>Phone</label>
+        <textarea asp-for="Phone" class="form-control" placeholder="Enter phone number"></textarea>
+        <span class="text-danger" asp-validation-for="Phone"></span>
+    </div>
+    <div class="form-group">
+        <label>Password</label>
+        <textarea asp-for="Password" class="form-control" placeholder="Enter password"></textarea>
+        <span class="text-danger" asp-validation-for="Password"></span>
+    </div>
+    <div class="form-group">
+        <label>Created At</label>
+        <textarea asp-for="CreatedAt" class="form-control" placeholder="Set when created the group"></textarea>
+        <span class="text-danger" asp-validation-for="CreatedAt"></span>
+    </div>
+
+    <div class="form-group">
+        <label>Group</label>
+        <select asp-for="GroupId" class="custom-select form-control" id="inputGroupSelect04">
+            <option selected>Choose...</option>
+            @foreach (var group in ViewBag.Groups)
+            {
+                <option value="@group.Id">@group.Name</option>
+            }
+        </select>
+        <span asp-validation-for="GroupId" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label>Location</label>
+        <select asp-for="LocationId" class="custom-select form-control" id="inputGroupSelect04">
+            <option selected>Choose...</option>
+            @foreach (var location in ViewBag.Locations)
+            {
+                <option value="@location.Id">@location.Name</option>
+            }
+        </select>
+        <span asp-validation-for="LocationId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>

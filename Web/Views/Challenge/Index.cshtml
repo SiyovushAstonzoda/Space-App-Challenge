@@ -1,0 +1,37 @@
+﻿@using Domain.Wrapper;
+@using Domain.Dtos;
+@model List<GetChallengeDto>
+    <!-- Jumbotron -->
+     <div
+        class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+        style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');"
+    >
+    <h1 class="mb-3 h2">Challenge</h1>
+    </div>
+    <!-- Jumbotron -->
+    
+<a class="btn btn-primary" href="/challenge/add" role="button">Create</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var challenge in Model)
+    {
+        <tr>
+            <th scope="row">@challenge.Id</th>
+            <td>@challenge.Name</td>
+            <td>@challenge.Description</td>
+            <td>
+                <a href="/challenge/update/@challenge.Id">Edit</a>
+                <a href="/challenge/delete/@challenge.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -1,6 +1,5 @@
 using Domain.Entities;
 using Domain.Dtos;
-using Domain.Wrapper;
 using Infrastructure.Context;
 using Infrastructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -15,76 +14,82 @@ public class LocationService : ILocationService
         _context = context;
     }
 
-    public async Task<Response<AddLocationDto>> AddLocation(AddLocationDto model)
+    public async Task<AddLocationDto> AddLocation(AddLocationDto locationDto)
     {
-        try
-        {
-            var location = new Location()
+        var location = new Location
             {
-                Description = model.Description,
-                Name = model.Name
+                Name = locationDto.Name,
+                Description = locationDto.Description
             };
+        
             await _context.Locations.AddAsync(location);
             await _context.SaveChangesAsync();
-            model.Id = location.Id;
-            return new Response<AddLocationDto>(model);
-        }
-        catch (Exception ex)
-        {
-            return new Response<AddLocationDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
-        }
+
+            locationDto.Id = location.Id;
+
+        var challengeCreated = await GetLocationById(location.Id);
+        return challengeCreated;
     }
 
-    public async Task<Response<string>> DeleteLocation(int Id)
+    public async Task<bool> DeleteLocation(int id)
     {
-        try
-        {
-         var record = await _context.Locations.FindAsync(Id);
+        var location = await _context.Locations.FirstOrDefaultAsync(e => e.Id == id);
 
-         if(record == null) return new Response<string>(System.Net.HttpStatusCode.NotFound, "Not found");
-
-         _context.Locations.Remove(record);
-         await _context.SaveChangesAsync();
-         return new Response<string>("success");
-        }
-        catch (Exception ex)
+        if (location == null)
         {
-            return new Response<string>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return false;
         }
+
+        _context.Locations.Remove(location);
+        await _context.SaveChangesAsync();
+
+        return true;
     }
 
-    public async Task<Response<List<GetLocationDto>>> GetLocations()
+    public async Task<List<GetLocationDto>> GetLocations()
     {
-        var locations = await _context.Locations.Select
+        var locations = await _context.Locations
+            .Select
         (
             l=> new GetLocationDto()
         {
-            Name = l.Name,
             Id = l.Id,
+            Name = l.Name,
             Description = l.Description
         }
         ).ToListAsync();
-        return new Response<List<GetLocationDto>>(locations);
+        return locations;
     }
 
-    public async Task<Response<AddLocationDto>> UpdateLocation(AddLocationDto location)
+    public async Task<AddLocationDto> GetLocationById(int id)
     {
-        try
-        {
-            var record = await _context.Locations.FindAsync(location.Id);
-             //if not found it will return null
-            if(record == null) return new Response<AddLocationDto>(System.Net.HttpStatusCode.NotFound, "No record found");
+        var location = await _context.Locations
+            .Select(lo => new AddLocationDto()
+            {
+                Id = lo.Id,
+                Name = lo.Name,
+                Description = lo.Description
+            })
+            .FirstOrDefaultAsync(tu => tu.Id == id);
 
-            //pod voprosom
-            record.Name = location.Name;
-            record.Description = location.Description;
-            await _context.SaveChangesAsync();
+        return location;
+    }
 
-            return new Response<AddLocationDto>(location);
-        }
-        catch (Exception ex)
+    public async Task<AddLocationDto> UpdateLocation(AddLocationDto locationDto)
+    {
+        var location = await _context.Locations.FirstOrDefaultAsync(e => e.Id == locationDto.Id);
+
+        if (location == null)
         {
-            return new Response<AddLocationDto>(System.Net.HttpStatusCode.InternalServerError, ex.Message);
+            return null;
         }
+
+        location.Name = locationDto.Name;
+        location.Description = locationDto.Description;
+
+        await _context.SaveChangesAsync();
+
+        var locationUpdated = await GetLocationById(location.Id);
+        return locationUpdated;
     }
 }

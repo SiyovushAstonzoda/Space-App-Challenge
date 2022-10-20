@@ -5,8 +5,9 @@ namespace Infrastructure.Interfaces;
 
 public interface IParticipantService
 {
-    Task<Response<List<GetParticipantDto>>> GetParticipants();
-    Task<Response<AddParticipantDto>> AddParticipant(AddParticipantDto participant);
-    Task<Response<AddParticipantDto>> UpdateParticipant(AddParticipantDto participant);
-    Task<Response<string>> DeleteParticipant(int Id);
+    Task<List<GetParticipantDto>> GetParticipants();
+    Task<AddParticipantDto> GetParticipantById(int id);
+    Task<AddParticipantDto> AddParticipant(AddParticipantDto participantDto);
+    Task<AddParticipantDto> UpdateParticipant(AddParticipantDto participantDto);
+    Task<bool> DeleteParticipant(int id);
 }

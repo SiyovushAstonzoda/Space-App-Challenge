@@ -1,0 +1,36 @@
+﻿@using Domain.Dtos;
+@model List<GetLocationDto>
+<!-- Jumbotron -->
+<div
+    class="bg-image p-5 text-center shadow-1-strong rounded mb-5 text-white"
+    style="background-image: url('https://mdbcdn.b-cdn.net/img/new/slides/003.webp');"
+>
+    <h1 class="mb-3 h2">Location</h1>
+</div>
+<!-- Jumbotron -->
+    
+<a class="btn btn-primary" href="/location/add" role="button">Create</a>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var location in Model)
+    {
+        <tr>
+                <th scope="row">@location.Id</th>
+                <td>@location.Name</td>
+                <td>@location.Description</td>
+            <td>
+                    <a href="/location/update/@location.Id">Edit</a>
+                    <a href="/location/delete/@location.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
