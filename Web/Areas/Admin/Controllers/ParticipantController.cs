@@ -3,7 +3,7 @@ using Infrastructure.Interfaces;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
-namespace Web.Controllers
+namespace Web.Areas.Admin.Controllers
 {
     public class ParticipantController : Controller
     {
