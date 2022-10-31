@@ -3,8 +3,8 @@ using Infrastructure.Interfaces;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
-namespace Web.Areas.Admin.Controllers
-{
+namespace Web.Areas.Admin.Controllers;
+[Area("Admin")]
     public class ParticipantController : Controller
     {
         private readonly IParticipantService _participantService;
@@ -68,4 +68,3 @@ namespace Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
     }
-}

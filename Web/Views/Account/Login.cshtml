@@ -1,0 +1,26 @@
+﻿@model Domain.Dtos.LoginDto
+
+<div class="text-center">
+    <img src="https://edison365.com/wp-content/uploads/2022/03/How-do-hackathons-work.png"
+         style="width: 185px;" alt="logo">
+    <h4 class="mt-1 mb-5 pb-1">We are The Hackathon</h4>
+</div>
+
+<form method="post" asp-action="Login">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="hidden" asp-for="ReturnUrl">
+        <input type="text" asp-for="Username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" asp-for="Password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+        <span asp-validation-summary="All"></span>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

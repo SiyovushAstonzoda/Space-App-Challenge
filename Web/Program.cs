@@ -12,6 +12,16 @@ builder.Services.AddScoped<IParticipantService, ParticipantService>();
 builder.Services.AddScoped<IChallengeService, ChallengeService>();
 builder.Services.AddScoped<IGroupService, GroupService>();
 builder.Services.AddScoped<ILocationService, LocationService>();
+
+//create cookie
+builder.Services.AddAuthentication("CookieAuth")
+    .AddCookie("CookieAuth", options =>
+    {
+        options.AccessDeniedPath = "/Account/accessdenied/";
+        options.LoginPath = "/Account/Login/";
+        options.ExpireTimeSpan = TimeSpan.FromDays(1);
+    });
+
 // add database context
 builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 var app = builder.Build();
@@ -29,6 +39,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//log
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

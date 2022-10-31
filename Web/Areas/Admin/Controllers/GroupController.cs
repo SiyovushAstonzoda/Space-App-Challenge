@@ -4,8 +4,8 @@ using Infrastructure.Services;
 using Microsoft.AspNetCore.Mvc;
 using Web.Models;
 
-namespace Web.Areas.Admin.Controllers
-{
+namespace Web.Areas.Admin.Controllers;
+[Area("Admin")]
     public class GroupController : Controller
     {
         private readonly IGroupService _groupService;
@@ -75,4 +75,3 @@ namespace Web.Areas.Admin.Controllers
             return RedirectToAction("Index");
         }
     }
-}
